@@ -95,7 +95,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="arduino|src/LCD_I2C_demo_.cpp" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="arduino_hw_lib/lcd_i2c|arduino_hw_lib/gp2d12|arduino_hw_lib/navigation|arduino_hw_lib/motor|arduino|src/LCD_I2C_demo_.cpp" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -195,7 +195,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="arduino|src/LCD_I2C_demo_.cpp" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="arduino_hw_lib/lcd_i2c|arduino_hw_lib/gp2d12|arduino_hw_lib/navigation|arduino_hw_lib/motor|arduino|src/LCD_I2C_demo_.cpp" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
