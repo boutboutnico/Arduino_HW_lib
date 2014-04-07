@@ -1,5 +1,5 @@
 ///
-/// gp2d12.h - Class that provides basic function to read value from
+/// gp2d12.cpp - Class that provides basic function to read value from
 /// a GP2D12 sensor.
 /// Copyright (c) 2013 Nicolas BOUTIN.  All right reserved.
 ///
@@ -18,7 +18,7 @@
 /// Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 /// ------------------------------------------------------------------------------------------------
 ///
-/// \file	gp2d12.h
+/// \file	gp2d12.cpp
 /// \brief	Library to read GP2D12 sensor.
 /// \date	07/04/2014
 /// \author	nboutin

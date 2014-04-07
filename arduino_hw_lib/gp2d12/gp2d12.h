@@ -74,8 +74,8 @@ class GP2D12
 		/// Typical start up delay: 44 ms
 		static const uint8_t TYPICAL_START_UP_DELAY_MS = 44;
 
-		static const uint8_t MIN_DEFAULT = 10;
-		static const uint8_t MAX_DEFAULT = 80;
+		static const uint8_t DISTANCE_MIN_DEFAULT = 10;
+		static const uint8_t DISTANCE_MAX_DEFAULT = 80;
 		static const uint8_t HISTORY_SIZE = 5;
 
 		/// ----------------------------------------------------------------------------------------
@@ -83,8 +83,8 @@ class GP2D12
 		/// ----------------------------------------------------------------------------------------
 
 		GP2D12(	const uint8_t i_ui8_input_pin,
-				const uint8_t i_ui8_min_cm = MIN_DEFAULT,
-				const uint8_t i_ui8_max_cm = MAX_DEFAULT);
+				const uint8_t i_ui8_min_cm = DISTANCE_MIN_DEFAULT,
+				const uint8_t i_ui8_max_cm = DISTANCE_MAX_DEFAULT);
 
 		uint16_t getTension();
 		uint8_t getDistance_cm();
