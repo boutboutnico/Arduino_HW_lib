@@ -125,18 +125,6 @@ void loop(void)
 	const int32_t i32_val = -456798;
 	const float f_val = 1234.89;
 
-//	size_t println(const String &s);
-//	size_t println(const char[]);
-//	size_t println(char);
-//	size_t println(unsigned char, int = DEC);
-//	size_t println(int, int = DEC);
-//	size_t println(unsigned int, int = DEC);
-//	size_t println(long, int = DEC);
-//	size_t println(unsigned long, int = DEC);
-//	size_t println(double, int = 2);
-//	size_t println(const Printable&);
-//	size_t println(void);
-
 	lcd.clear();
 	lcd << "-- Operator << --" << endl;
 	delay(ui32_lcd_delay);

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>ArduinoCore</name>
+	<name>lcd_i2c_demo</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -25,4 +25,16 @@
 		<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
 		<nature>de.innot.avreclipse.core.avrnature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>arduino_core</name>
+			<type>2</type>
+			<location>C:/dev/Arduino_HW_lib/arduino_core</location>
+		</link>
+		<link>
+			<name>arduino_hw_lib</name>
+			<type>2</type>
+			<location>C:/dev/Arduino_HW_lib/arduino_hw_lib</location>
+		</link>
+	</linkedResources>
 </projectDescription>
