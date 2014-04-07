@@ -24,7 +24,7 @@
 /// \author	nboutin
 ///
 
-#include "lcd_I2C.h"
+#include "lcd_i2c.h"
 using namespace arduino_hw_lib;
 
 /// ------------------------------------------------------------------------------------------------
