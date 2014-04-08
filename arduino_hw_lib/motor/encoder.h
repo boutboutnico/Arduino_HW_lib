@@ -31,6 +31,8 @@
 /// ------------------------------------------------------------------------------------------------
 #include "Arduino.h"
 
+#include "motor_typedef.h"
+
 /// ------------------------------------------------------------------------------------------------
 /// NAMESPACE
 /// ------------------------------------------------------------------------------------------------
@@ -38,7 +40,9 @@
 namespace arduino_hw_lib
 {
 
-typedef void (*pfunc)(void);
+///	\typedef	T_pfunc_it
+///	\brief		Pointer to function for interrupt.
+typedef void (*T_pfunc_it)(void);
 
 /// ------------------------------------------------------------------------------------------------
 /// CLASS
@@ -60,8 +64,8 @@ class Encoder
 		Encoder(const uint8_t i_pin_A,
 				const uint8_t i_int_pin_A,
 				const uint8_t i_pin_B,
-				const pfunc& ipf_interrupt,
-				const boolean ib_isCCW);
+				const T_pfunc_it& ipf_interrupt,
+				const motor::E_Direction ie_direction);
 
 		void update();
 		int32_t getCount() const;
@@ -71,7 +75,7 @@ class Encoder
 		/// PRIVATE DECLARATIONS
 		/// ----------------------------------------------------------------------------------------
 
-		void begin(const pfunc& ipf_interrupt);
+		void begin(const T_pfunc_it& ipf_interrupt);
 
 		/// ----------------------------------------------------------------------------------------
 		/// PRIVATE ATTRIBUTS
@@ -80,7 +84,7 @@ class Encoder
 		const uint8_t pin_A;
 		const uint8_t int_pin_A;
 		const uint8_t pin_B;
-		const boolean b_CCW;
+		const motor::E_Direction e_direction;
 
 		int32_t i32_cpt_encoder;
 };

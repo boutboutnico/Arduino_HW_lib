@@ -31,6 +31,8 @@
 /// ------------------------------------------------------------------------------------------------
 #include "Arduino.h"
 
+#include "motor_typedef.h"
+
 /// ------------------------------------------------------------------------------------------------
 /// NAMESPACE
 /// ------------------------------------------------------------------------------------------------
@@ -55,15 +57,15 @@ class Motor
 		/// CONSTANTS
 		/// ----------------------------------------------------------------------------------------
 
-		static const uint8_t FORWARD = LOW;
-		static const uint8_t REVERSE = HIGH;
 		static const uint8_t COMMAND_DEFAULT = 0;
 
 		/// ----------------------------------------------------------------------------------------
 		/// PUBLIC DECLARATIONS
 		/// ----------------------------------------------------------------------------------------
 
-		Motor(const uint8_t i_ui8_dir_pin, const uint8_t i_ui8_cmd_pin, const boolean i_b_dir);
+		Motor(	const uint8_t i_ui8_dir_pin,
+				const uint8_t i_ui8_cmd_pin,
+				const motor::E_Direction ie_direction);
 
 		void command(const int16_t i_i16_command);
 
@@ -80,9 +82,9 @@ class Motor
 
 		const uint8_t ui8_dir_pin;
 		const uint8_t ui8_cmd_pin;
-		const boolean b_dir;
+		const motor::E_Direction e_direction;
 
-		boolean b_current_dir;
+		motor::E_Direction e_current_direction;
 };
 
 }

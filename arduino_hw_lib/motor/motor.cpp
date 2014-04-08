@@ -31,14 +31,21 @@ using namespace arduino_hw_lib;
 /// ------------------------------------------------------------------------------------------------
 
 /// ------------------------------------------------------------------------------------------------
+/// NAMESPACES
+/// ------------------------------------------------------------------------------------------------
+using namespace motor;
+
+/// ------------------------------------------------------------------------------------------------
 /// PUBLIC DEFINITIONS
 /// ------------------------------------------------------------------------------------------------
 
-Motor::Motor(const uint8_t i_ui8_dir_pin, const uint8_t i_ui8_cmd_pin, const boolean i_b_dir)
+Motor::Motor(	const uint8_t i_ui8_dir_pin,
+				const uint8_t i_ui8_cmd_pin,
+				const motor::E_Direction ie_direction)
 		: 	ui8_dir_pin(i_ui8_dir_pin),
 			ui8_cmd_pin(i_ui8_cmd_pin),
-			b_dir(i_b_dir),
-			b_current_dir(i_b_dir)
+			e_direction(ie_direction),
+			e_current_direction(ie_direction)
 {
 	/// Nothing to do
 	begin();
@@ -47,50 +54,50 @@ Motor::Motor(const uint8_t i_ui8_dir_pin, const uint8_t i_ui8_cmd_pin, const boo
 void Motor::command(const int16_t i_i16_command)
 {
 	/// Change direction only when needed
-	switch (b_dir)
+	switch (e_direction)
 	{
-	case FORWARD:
-		if (i_i16_command < 0 && b_current_dir != REVERSE)
+	case DIR_FORWARD:
+		if (i_i16_command < 0 && e_current_direction != DIR_REVERSE)
 		{
-			b_current_dir = REVERSE;
-			digitalWrite(ui8_dir_pin, b_current_dir);
+			e_current_direction = DIR_REVERSE;
+			digitalWrite(ui8_dir_pin, e_current_direction);
 
 #ifdef __DBG_MOT
 			Serial.print("Change dir 1 :");
-			Serial.println(b_current_dir);
+			Serial.println(e_current_direction);
 #endif
 		}
-		else if (i_i16_command >= 0 && b_current_dir != FORWARD)
+		else if (i_i16_command >= 0 && e_current_direction != DIR_FORWARD)
 		{
-			b_current_dir = FORWARD;
-			digitalWrite(ui8_dir_pin, b_current_dir);
+			e_current_direction = DIR_FORWARD;
+			digitalWrite(ui8_dir_pin, e_current_direction);
 
 #ifdef __DBG_MOT
 			Serial.print("Change dir 2 :");
-			Serial.println(b_current_dir);
+			Serial.println(e_current_direction);
 #endif
 		}
 		break;
 
-	case REVERSE:
-		if (i_i16_command < 0 && b_current_dir != FORWARD)
+	case DIR_REVERSE:
+		if (i_i16_command < 0 && e_current_direction != DIR_FORWARD)
 		{
-			b_current_dir = FORWARD;
-			digitalWrite(ui8_dir_pin, b_current_dir);
+			e_current_direction = DIR_FORWARD;
+			digitalWrite(ui8_dir_pin, e_current_direction);
 
 #ifdef __DBG_MOT
 			Serial.print("Change dir 3 :");
-			Serial.println(b_current_dir);
+			Serial.println(e_current_direction);
 #endif
 		}
-		else if (i_i16_command >= 0 && b_current_dir != REVERSE)
+		else if (i_i16_command >= 0 && e_current_direction != DIR_REVERSE)
 		{
-			b_current_dir = REVERSE;
-			digitalWrite(ui8_dir_pin, b_current_dir);
+			e_current_direction = DIR_REVERSE;
+			digitalWrite(ui8_dir_pin, e_current_direction);
 
 #ifdef __DBG_MOT
 			Serial.print("Change dir 4 :");
-			Serial.println(b_current_dir);
+			Serial.println(e_current_direction);
 #endif
 		}
 		break;
@@ -122,7 +129,7 @@ void Motor::begin()
 {
 	pinMode(ui8_dir_pin, OUTPUT);
 	pinMode(ui8_cmd_pin, OUTPUT);
-	digitalWrite(ui8_dir_pin, b_dir);
+	digitalWrite(ui8_dir_pin, e_direction);
 	analogWrite(ui8_cmd_pin, COMMAND_DEFAULT);
 }
 

@@ -31,24 +31,29 @@ using namespace arduino_hw_lib;
 /// ------------------------------------------------------------------------------------------------
 
 /// ------------------------------------------------------------------------------------------------
+/// NAMESPACES
+/// ------------------------------------------------------------------------------------------------
+using namespace motor;
+
+/// ------------------------------------------------------------------------------------------------
 /// PUBLIC DEFINITIONS
 /// ------------------------------------------------------------------------------------------------
 
 Encoder::Encoder(	const uint8_t i_pin_A,
 					const uint8_t i_int_pin_A,
 					const uint8_t i_pin_B,
-					const pfunc& ipf_interrupt,
-					const boolean ib_isCCW)
+					const T_pfunc_it& ipf_interrupt,
+					const motor::E_Direction ie_direction)
 		: 	pin_A(i_pin_A),
 			int_pin_A(i_int_pin_A),
 			pin_B(i_pin_B),
-			b_CCW(ib_isCCW),
+			e_direction(ie_direction),
 			i32_cpt_encoder(0)
 {
 	begin(ipf_interrupt);
 }
 
-void Encoder::begin(const pfunc& ipf_interrupt)
+void Encoder::begin(const T_pfunc_it& ipf_interrupt)
 {
 	pinMode(pin_A, INPUT);
 	digitalWrite(pin_A, HIGH);    /// turn on pullup resistor
@@ -67,11 +72,11 @@ void Encoder::update()
 		/// check channel B to see which way encoder is turning
 		if (digitalRead(pin_B) == LOW)
 		{
-			i32_cpt_encoder++;         /// CW
+			i32_cpt_encoder--;         /// CCW
 		}
 		else
 		{
-			i32_cpt_encoder--;         /// CCW
+			i32_cpt_encoder++;         /// CW
 		}
 	}
 	/// found a high-to-low on channel A
@@ -80,18 +85,18 @@ void Encoder::update()
 		/// check channel B to see which way encoder is turning
 		if (digitalRead(pin_B) == LOW)
 		{
-			i32_cpt_encoder--;          /// CCW
+			i32_cpt_encoder++;          /// CW
 		}
 		else
 		{
-			i32_cpt_encoder++;          /// CW
+			i32_cpt_encoder--;          /// CCW
 		}
 	}
 }
 
 int32_t Encoder::getCount() const
 {
-	if (b_CCW == true)
+	if (e_direction == DIR_REVERSE)
 	{
 		return i32_cpt_encoder;
 	}

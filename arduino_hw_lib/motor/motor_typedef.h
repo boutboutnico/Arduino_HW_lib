@@ -1,17 +1,34 @@
-/*
- * motor_typedef.h
- *
- *  Created on: 7 avr. 2014
- *      Author: Nico_user
- */
+///
+/// \file	motor_typedef.h
+/// \brief	Type definition to work with motor library.
+/// \date	08/04/2014
+/// \author	nboutin
+///
 
 #ifndef MOTOR_TYPEDEF_H_
 #define MOTOR_TYPEDEF_H_
 
+/// ------------------------------------------------------------------------------------------------
+/// INCLUDES
+/// ------------------------------------------------------------------------------------------------
 #include "Arduino.h"
 
+/// ------------------------------------------------------------------------------------------------
+/// NAMESPACE
+/// ------------------------------------------------------------------------------------------------
+
+/// \namespace	motor
+///	\brief		Type definition to work with motor.
 namespace motor
 {
+
+/// \enum	E_Direction
+/// \brief	Motor and Encoder direction.
+enum E_Direction
+{
+	DIR_FORWARD = LOW,
+	DIR_REVERSE = HIGH
+};
 
 enum E8_Behavior
 {
