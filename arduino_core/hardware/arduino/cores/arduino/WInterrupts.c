@@ -33,7 +33,14 @@
 #include "wiring_private.h"
 
 static volatile voidFuncPtr intFunc[EXTERNAL_NUM_INTERRUPTS];
+static void*  intFuncArg[EXTERNAL_NUM_INTERRUPTS];
 // volatile static voidFuncPtr twiIntFunc;
+
+void attachInterruptWithArg(uint8_t interruptNum, void (*userFunc)(void*), void* arg, int mode)
+{
+	attachInterrupt(interruptNum, (void (*)(void))userFunc, mode);
+	intFuncArg[interruptNum] = arg;
+}
 
 void attachInterrupt(uint8_t interruptNum, void (*userFunc)(void), int mode) {
   if(interruptNum < EXTERNAL_NUM_INTERRUPTS) {
@@ -306,14 +313,30 @@ ISR(INT7_vect) {
 
 #else
 
-ISR(INT0_vect) {
-  if(intFunc[EXTERNAL_INT_0])
-    intFunc[EXTERNAL_INT_0]();
+ISR(INT0_vect)
+{
+	if (intFunc[EXTERNAL_INT_0] != 0 && intFuncArg[EXTERNAL_INT_0] == 0)
+	{
+		intFunc[EXTERNAL_INT_0]();
+	}
+	else if (intFunc[EXTERNAL_INT_0] != 0)
+	{
+		void (*pcallback)(void*) = (void (*)(void*)) intFunc[EXTERNAL_INT_0];
+		pcallback(intFuncArg[EXTERNAL_INT_0]);
+	}
 }
 
-ISR(INT1_vect) {
-  if(intFunc[EXTERNAL_INT_1])
-    intFunc[EXTERNAL_INT_1]();
+ISR(INT1_vect)
+{
+	if (intFunc[EXTERNAL_INT_1] != 0 && intFuncArg[EXTERNAL_INT_1] == 0)
+	{
+		intFunc[EXTERNAL_INT_1]();
+	}
+	else if (intFunc[EXTERNAL_INT_1] != 0)
+	{
+		void (*pcallback)(void*) = (void (*)(void*)) intFunc[EXTERNAL_INT_1];
+		pcallback(intFuncArg[EXTERNAL_INT_1]);
+	}
 }
 
 #if defined(EICRA) && defined(ISC20)

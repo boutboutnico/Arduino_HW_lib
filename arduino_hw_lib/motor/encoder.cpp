@@ -42,7 +42,6 @@ using namespace motor;
 Encoder::Encoder(	const uint8_t i_pin_A,
 					const uint8_t i_int_pin_A,
 					const uint8_t i_pin_B,
-					const T_pfunc_it& ipf_interrupt,
 					const motor::E_Direction ie_direction)
 		: 	pin_A(i_pin_A),
 			int_pin_A(i_int_pin_A),
@@ -50,10 +49,26 @@ Encoder::Encoder(	const uint8_t i_pin_A,
 			e_direction(ie_direction),
 			i32_cpt_encoder(0)
 {
-	begin(ipf_interrupt);
+	begin();
 }
 
-void Encoder::begin(const T_pfunc_it& ipf_interrupt)
+int32_t Encoder::getCount() const
+{
+	if (e_direction == DIR_REVERSE)
+	{
+		return i32_cpt_encoder;
+	}
+	else
+	{
+		return -i32_cpt_encoder;
+	}
+}
+
+/// ------------------------------------------------------------------------------------------------
+/// PRIVATE DEFINITIONS
+/// ------------------------------------------------------------------------------------------------
+
+void Encoder::begin()
 {
 	pinMode(pin_A, INPUT);
 	digitalWrite(pin_A, HIGH);    /// turn on pullup resistor
@@ -61,7 +76,15 @@ void Encoder::begin(const T_pfunc_it& ipf_interrupt)
 	pinMode(pin_B, INPUT);
 	digitalWrite(pin_B, HIGH);    /// turn on pullup resistor
 
-	attachInterrupt(int_pin_A, ipf_interrupt, CHANGE);
+	attachInterruptWithArg(int_pin_A, wrapper_interrupt, this, CHANGE);
+}
+
+void Encoder::wrapper_interrupt(void* ip_arg)
+{
+	if (ip_arg != 0)
+	{
+		reinterpret_cast<Encoder*>(ip_arg)->update();
+	}
 }
 
 void Encoder::update()
@@ -93,22 +116,6 @@ void Encoder::update()
 		}
 	}
 }
-
-int32_t Encoder::getCount() const
-{
-	if (e_direction == DIR_REVERSE)
-	{
-		return i32_cpt_encoder;
-	}
-	else
-	{
-		return -i32_cpt_encoder;
-	}
-}
-
-/// ------------------------------------------------------------------------------------------------
-/// PRIVATE DEFINITIONS
-/// ------------------------------------------------------------------------------------------------
 
 /// ------------------------------------------------------------------------------------------------
 /// END OF FILE

@@ -49,10 +49,13 @@ typedef void (*T_pfunc_it)(void);
 /// ------------------------------------------------------------------------------------------------
 
 ///
-/// \class 	Encoder
-/// \brief	Class to read encoder from a motor.
-/// \date	08/04/2014
-/// \author	nboutin
+/// \class 		Encoder
+/// \brief		Class to read encoder from a motor.
+/// \warning	Used user defined attachInterruptWithArg function.
+///	\see		WInterrupts.c
+///	\see		Arduino.h
+/// \date		08/04/2014
+/// \author		nboutin
 ///
 class Encoder
 {
@@ -64,10 +67,8 @@ class Encoder
 		Encoder(const uint8_t i_pin_A,
 				const uint8_t i_int_pin_A,
 				const uint8_t i_pin_B,
-				const T_pfunc_it& ipf_interrupt,
 				const motor::E_Direction ie_direction);
 
-		void update();
 		int32_t getCount() const;
 
 	private:
@@ -75,7 +76,10 @@ class Encoder
 		/// PRIVATE DECLARATIONS
 		/// ----------------------------------------------------------------------------------------
 
-		void begin(const T_pfunc_it& ipf_interrupt);
+		void begin();
+
+		static void wrapper_interrupt(void* ip_arg);
+		void update();
 
 		/// ----------------------------------------------------------------------------------------
 		/// PRIVATE ATTRIBUTS
