@@ -65,6 +65,8 @@ class SRF05
 		static const uint8_t TRIGGER_PULSE_DURATION_US = 20;    /// (µs) >= 10µs minimum.
 		static const uint32_t ECHO_PULSE_TIMEOUT_US = 300000;    /// (µs) if no object detected.
 
+		static const uint8_t HISTORY_SIZE = 5;
+
 		/// ----------------------------------------------------------------------------------------
 		/// PUBLIC DECLARATIONS
 		/// ----------------------------------------------------------------------------------------
@@ -76,6 +78,8 @@ class SRF05
 
 		uint16_t getDistance_cm() const;
 
+		uint16_t getDistanceAverage_cm();
+
 	private:
 		/// ----------------------------------------------------------------------------------------
 		/// PRIVATE ATTRIBUTS
@@ -85,6 +89,8 @@ class SRF05
 
 		const uint8_t ui8_min_cm;
 		const uint16_t ui16_max_cm;
+
+		uint16_t tui16_average_distance[HISTORY_SIZE];
 };
 
 }

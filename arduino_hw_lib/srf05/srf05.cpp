@@ -62,6 +62,27 @@ uint16_t SRF05::getDistance_cm() const
 	return constrain((ui32_pulse_time / TIME_US_TO_CM), ui8_min_cm, ui16_max_cm);    /// convert to centimeters
 }
 
+uint16_t SRF05::getDistanceAverage_cm()
+{
+	/// Shift old value to right
+	for (uint8_t i = HISTORY_SIZE - 1; i > 0; i--)
+	{
+		tui16_average_distance[i] = tui16_average_distance[i - 1];
+	}
+
+	/// Store new value
+	tui16_average_distance[0] = getDistance_cm();
+
+	/// Average table
+	uint16_t ui16_result = 0;
+	for (uint8_t i = 0; i < HISTORY_SIZE; i++)
+	{
+		ui16_result += tui16_average_distance[i];
+	}
+
+	return ui16_result / HISTORY_SIZE;
+}
+
 /// ------------------------------------------------------------------------------------------------
 /// PRIVATE DEFINITIONS
 /// ------------------------------------------------------------------------------------------------
