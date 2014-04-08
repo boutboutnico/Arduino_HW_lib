@@ -1,98 +1,112 @@
-//	 Start of the Copyright Notice
-//	****************************************************************************
-// 	* Copyright Itron SAS.                                                     *
-//	* This computer program includes confidential proprietary information and  *
-//	* is a trade secret of Itron. All use, disclosures and/or reproduction 	   *
-//	* is prohibited unless authorized in writing.          					   *
-//	* All Rights Reserved                                                      *
-//	****************************************************************************
-//	 End of the Copyright Notice
+///
+/// Class that provides basic function to read encoder from a motor.
+/// Copyright (c) 2013 Nicolas BOUTIN.  All right reserved.
+///
+/// This library is free software; you can redistribute it and/or
+/// modify it under the terms of the GNU Lesser General Public
+/// License as published by the Free Software Foundation; either
+/// version 2.1 of the License, or (at your option) any later version.
+///
+/// This library is distributed in the hope that it will be useful,
+/// but WITHOUT ANY WARRANTY; without even the implied warranty of
+/// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+/// Lesser General Public License for more details.
+///
+/// You should have received a copy of the GNU Lesser General Public
+/// License along with this library; if not, write to the Free Software
+/// Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+/// ------------------------------------------------------------------------------------------------
+///
+/// \file	encoder.cpp
+/// \brief	Library to read encoder from a motor.
+/// \date	08/04/2014
+/// \author	nboutin
+///
 
-/*************************************************************************//**
- * @file 	encoder.cpp
- * @brief	xx
- * @author	boutboutnico
- * @date	25 juil. 2012
- * @company	Itron
- * @site	Chasseneuil
- * @product	xx
- * @module	xx
- *****************************************************************************/
-
-/*****************************************************************************
- * INCLUDE
- *****************************************************************************/
 #include "encoder.h"
+using namespace arduino_hw_lib;
 
-/*****************************************************************************
- * NAMESPACE
- *****************************************************************************/
+/// ------------------------------------------------------------------------------------------------
+/// INCLUDES
+/// ------------------------------------------------------------------------------------------------
 
-/*****************************************************************************
- * GLOBALE VARIABLE
- *****************************************************************************/
+/// ------------------------------------------------------------------------------------------------
+/// PUBLIC DEFINITIONS
+/// ------------------------------------------------------------------------------------------------
 
-/*****************************************************************************
- * PUBLIC IMPLEMENTATION
- *****************************************************************************/
-
-Encoder::Encoder(uint8_t pin_A, uint8_t int_pin_A, uint8_t pin_B, pfunc interrupt, bool isCCW)
-		: pin_A(pin_A), int_pin_A(int_pin_A), pin_B(pin_B), interrupt(interrupt), b_CCW(isCCW)
+Encoder::Encoder(	const uint8_t i_pin_A,
+					const uint8_t i_int_pin_A,
+					const uint8_t i_pin_B,
+					const pfunc ipf_interrupt,
+					const boolean ib_isCCW)
+		: 	pin_A(i_pin_A),
+			int_pin_A(i_int_pin_A),
+			pin_B(i_pin_B),
+			b_CCW(ib_isCCW),
+			interrupt(ipf_interrupt),
+			i32_cpt_encoder(0)
 {
-	cpt_encoder = 0;
+	/// Nothing to do
+	begin();
 }
 
 void Encoder::begin()
 {
 	pinMode(pin_A, INPUT);
-	digitalWrite(pin_A, HIGH);    // turn on pullup resistor
+	digitalWrite(pin_A, HIGH);    /// turn on pullup resistor
 
 	pinMode(pin_B, INPUT);
-	digitalWrite(pin_B, HIGH);    // turn on pullup resistor
+	digitalWrite(pin_B, HIGH);    /// turn on pullup resistor
 
 	attachInterrupt(int_pin_A, interrupt, CHANGE);
 }
 
 void Encoder::update()
 {
-	// found a low-to-high on channel A
+	/// found a low-to-high on channel A
 	if (digitalRead(pin_A) == HIGH)
 	{
-		// check channel B to see which way encoder is turning
+		/// check channel B to see which way encoder is turning
 		if (digitalRead(pin_B) == LOW)
 		{
-			cpt_encoder++;         // CW
+			i32_cpt_encoder++;         /// CW
 		}
 		else
 		{
-			cpt_encoder--;         // CCW
+			i32_cpt_encoder--;         /// CCW
 		}
 	}
-	// found a high-to-low on channel A
+	/// found a high-to-low on channel A
 	else
 	{
-		// check channel B to see which way encoder is turning
+		/// check channel B to see which way encoder is turning
 		if (digitalRead(pin_B) == LOW)
 		{
-			cpt_encoder--;          // CCW
+			i32_cpt_encoder--;          /// CCW
 		}
 		else
 		{
-			cpt_encoder++;          // CW
+			i32_cpt_encoder++;          /// CW
 		}
 	}
 }
 
-uint32_t Encoder::getCount()
+int32_t Encoder::getCount() const
 {
-	if (b_CCW == true) return cpt_encoder;
-	else return -cpt_encoder;
+	if (b_CCW == true)
+	{
+		return i32_cpt_encoder;
+	}
+	else
+	{
+		return -i32_cpt_encoder;
+	}
 }
 
-/*****************************************************************************
- * PRIVATE IMPLEMENTATION
- *****************************************************************************/
+/// ------------------------------------------------------------------------------------------------
+/// PRIVATE DEFINITIONS
+/// ------------------------------------------------------------------------------------------------
 
-/*****************************************************************************
- * END OF FILE
- *****************************************************************************/
+/// ------------------------------------------------------------------------------------------------
+/// END OF FILE
+/// ------------------------------------------------------------------------------------------------

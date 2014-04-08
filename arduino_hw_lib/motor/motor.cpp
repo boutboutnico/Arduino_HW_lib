@@ -1,5 +1,5 @@
 ///
-/// Class that provides basic function to read value from a GP2D12 sensor.
+/// Class that provides basic function to drive a motor.
 /// Copyright (c) 2013 Nicolas BOUTIN.  All right reserved.
 ///
 /// This library is free software; you can redistribute it and/or
