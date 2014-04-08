@@ -1,64 +1,58 @@
-/*************************************************************************//**
- * @file 	motor.cpp
- * @brief	xx
- * @author	Nicolas BOUTIN
- * @date	01/11/2012
- * @module	Motor
- *****************************************************************************/
+///
+/// Class that provides basic function to read value from a GP2D12 sensor.
+/// Copyright (c) 2013 Nicolas BOUTIN.  All right reserved.
+///
+/// This library is free software; you can redistribute it and/or
+/// modify it under the terms of the GNU Lesser General Public
+/// License as published by the Free Software Foundation; either
+/// version 2.1 of the License, or (at your option) any later version.
+///
+/// This library is distributed in the hope that it will be useful,
+/// but WITHOUT ANY WARRANTY; without even the implied warranty of
+/// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+/// Lesser General Public License for more details.
+///
+/// You should have received a copy of the GNU Lesser General Public
+/// License along with this library; if not, write to the Free Software
+/// Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+/// ------------------------------------------------------------------------------------------------
+///
+/// \file	motor.cpp
+/// \brief	Library to drive motor.
+/// \date	08/04/2014
+/// \author	nboutin
+///
 
-/*****************************************************************************
- * INCLUDE
- *****************************************************************************/
 #include "motor.h"
+using namespace arduino_hw_lib;
 
-/*****************************************************************************
- * GLOBALE VARIABLE
- *****************************************************************************/
+/// ------------------------------------------------------------------------------------------------
+/// INCLUDES
+/// ------------------------------------------------------------------------------------------------
 
-/*****************************************************************************
- * PUBLIC IMPLEMENTATION
- *****************************************************************************/
+/// ------------------------------------------------------------------------------------------------
+/// PUBLIC DEFINITIONS
+/// ------------------------------------------------------------------------------------------------
 
-/**
- *
- * @param i_ui8_dir_pin
- * @param i_ui8_cmd_pin
- * @param i_b_dir
- */
 Motor::Motor(const uint8_t i_ui8_dir_pin, const uint8_t i_ui8_cmd_pin, const boolean i_b_dir)
+		: 	ui8_dir_pin(i_ui8_dir_pin),
+			ui8_cmd_pin(i_ui8_cmd_pin),
+			b_dir(i_b_dir),
+			b_current_dir(i_b_dir)
 {
-	ui8_dir_pin = i_ui8_dir_pin;
-	ui8_cmd_pin = i_ui8_cmd_pin;
-
-	b_dir = i_b_dir;
-	b_current_dir = i_b_dir;
+	/// Nothing to do
+	begin();
 }
 
-/**
- *
- */
-void Motor::begin()
-{
-	pinMode(ui8_dir_pin, OUTPUT);
-	pinMode(ui8_cmd_pin, OUTPUT);
-	digitalWrite(ui8_dir_pin, b_dir);
-	analogWrite(ui8_cmd_pin, 0);
-}
-
-/**
- *
- * @param i_ui8_command
- */
 void Motor::command(const int16_t i_i16_command)
 {
-	//--------------------------------------------------
-	// Change direction only when needed
-	//--------------------------------------------------
-	switch(b_dir){
-	case MOT_FORWARD:
-		if(i_i16_command < 0 && b_current_dir != MOT_REVERSE)
+	/// Change direction only when needed
+	switch (b_dir)
+	{
+	case FORWARD:
+		if (i_i16_command < 0 && b_current_dir != REVERSE)
 		{
-			b_current_dir = MOT_REVERSE;
+			b_current_dir = REVERSE;
 			digitalWrite(ui8_dir_pin, b_current_dir);
 
 #ifdef __DBG_MOT
@@ -66,9 +60,9 @@ void Motor::command(const int16_t i_i16_command)
 			Serial.println(b_current_dir);
 #endif
 		}
-		else if(i_i16_command >= 0 && b_current_dir != MOT_FORWARD)
+		else if (i_i16_command >= 0 && b_current_dir != FORWARD)
 		{
-			b_current_dir = MOT_FORWARD;
+			b_current_dir = FORWARD;
 			digitalWrite(ui8_dir_pin, b_current_dir);
 
 #ifdef __DBG_MOT
@@ -78,10 +72,10 @@ void Motor::command(const int16_t i_i16_command)
 		}
 		break;
 
-	case MOT_REVERSE:
-		if(i_i16_command < 0 && b_current_dir != MOT_FORWARD)
+	case REVERSE:
+		if (i_i16_command < 0 && b_current_dir != FORWARD)
 		{
-			b_current_dir = MOT_FORWARD;
+			b_current_dir = FORWARD;
 			digitalWrite(ui8_dir_pin, b_current_dir);
 
 #ifdef __DBG_MOT
@@ -89,9 +83,9 @@ void Motor::command(const int16_t i_i16_command)
 			Serial.println(b_current_dir);
 #endif
 		}
-		else if(i_i16_command >= 0 && b_current_dir != MOT_REVERSE)
+		else if (i_i16_command >= 0 && b_current_dir != REVERSE)
 		{
-			b_current_dir = MOT_REVERSE;
+			b_current_dir = REVERSE;
 			digitalWrite(ui8_dir_pin, b_current_dir);
 
 #ifdef __DBG_MOT
@@ -102,15 +96,13 @@ void Motor::command(const int16_t i_i16_command)
 		break;
 	}
 
-	//--------------------------------------------------
-	// Apply command
-	//--------------------------------------------------
-	// Forward
-	if(i_i16_command >= 0)
+	/// Apply command
+	/// Forward
+	if (i_i16_command >= 0)
 	{
 		analogWrite(ui8_cmd_pin, i_i16_command);
 	}
-	// Backward
+	/// Backward
 	else
 	{
 		analogWrite(ui8_cmd_pin, abs(i_i16_command));
@@ -122,10 +114,18 @@ void Motor::command(const int16_t i_i16_command)
 #endif
 }
 
-/*****************************************************************************
- * PRIVATE IMPLEMENTATION
- *****************************************************************************/
+/// ------------------------------------------------------------------------------------------------
+/// PRIVATE DEFINITIONS
+/// ------------------------------------------------------------------------------------------------
 
-/*****************************************************************************
- * END OF FILE
- *****************************************************************************/
+void Motor::begin()
+{
+	pinMode(ui8_dir_pin, OUTPUT);
+	pinMode(ui8_cmd_pin, OUTPUT);
+	digitalWrite(ui8_dir_pin, b_dir);
+	analogWrite(ui8_cmd_pin, COMMAND_DEFAULT);
+}
+
+/// ------------------------------------------------------------------------------------------------
+/// END OF FILE
+/// ------------------------------------------------------------------------------------------------

@@ -1,52 +1,93 @@
-/*************************************************************************//**
- * @file 	motor.h
- * @brief	xx
- * @author	Nicolas BOUTIN
- * @date	01/11/2012
- * @module	Motor
- *****************************************************************************/
-#ifndef __MOTOR__
-#define __MOTOR__
+///
+/// Class that provides basic function to read value from a GP2D12 sensor.
+/// Copyright (c) 2013 Nicolas BOUTIN.  All right reserved.
+///
+/// This library is free software; you can redistribute it and/or
+/// modify it under the terms of the GNU Lesser General Public
+/// License as published by the Free Software Foundation; either
+/// version 2.1 of the License, or (at your option) any later version.
+///
+/// This library is distributed in the hope that it will be useful,
+/// but WITHOUT ANY WARRANTY; without even the implied warranty of
+/// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+/// Lesser General Public License for more details.
+///
+/// You should have received a copy of the GNU Lesser General Public
+/// License along with this library; if not, write to the Free Software
+/// Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+/// ------------------------------------------------------------------------------------------------
+///
+/// \file	motor.h
+/// \brief	Library to drive motor.
+/// \date	08/04/2014
+/// \author	nboutin
+///
 
-/*****************************************************************************
- * INCLUDE
- *****************************************************************************/
+#ifndef MOTOR_H_
+#define MOTOR_H_
+
+/// ------------------------------------------------------------------------------------------------
+/// INCLUDES
+/// ------------------------------------------------------------------------------------------------
 #include "Arduino.h"
 
-/*****************************************************************************
- * DEFINITION
- *****************************************************************************/
-#define MOT_FORWARD LOW
-#define MOT_REVERSE HIGH
+/// ------------------------------------------------------------------------------------------------
+/// NAMESPACE
+/// ------------------------------------------------------------------------------------------------
 
-// #define __DBG_MOT
+namespace arduino_hw_lib
+{
 
-/*****************************************************************************
- * CLASS
- *****************************************************************************/
-/**
- * @class 	xx
- * @brief	xx
- * @author	boutboutnico
- * @date	25 juil. 2012
- */
+/// ------------------------------------------------------------------------------------------------
+/// CLASS
+/// ------------------------------------------------------------------------------------------------
+
+///
+/// \class 	Motor
+/// \brief	Class to drive motor.
+/// \date	08/04/2014
+/// \author	nboutin
+///
 class Motor
 {
-private:
-	uint8_t ui8_dir_pin;
-	uint8_t ui8_cmd_pin;
+	public:
+		/// ----------------------------------------------------------------------------------------
+		/// CONSTANTS
+		/// ----------------------------------------------------------------------------------------
 
-	boolean b_dir;
-	boolean b_current_dir;
+		static const uint8_t FORWARD = LOW;
+		static const uint8_t REVERSE = HIGH;
+		static const uint8_t COMMAND_DEFAULT = 0;
 
-public:
-	Motor(const uint8_t i_ui8_dir_pin, const uint8_t i_ui8_cmd_pin, const boolean i_b_dir);
+		/// ----------------------------------------------------------------------------------------
+		/// PUBLIC DECLARATIONS
+		/// ----------------------------------------------------------------------------------------
 
-	void begin();
-	void command(const int16_t i_i16_command);
+		Motor(const uint8_t i_ui8_dir_pin, const uint8_t i_ui8_cmd_pin, const boolean i_b_dir);
+
+		void command(const int16_t i_i16_command);
+
+	private:
+		/// ----------------------------------------------------------------------------------------
+		/// PRIVATE DECLARATIONS
+		/// ----------------------------------------------------------------------------------------
+
+		void begin();
+
+		/// ----------------------------------------------------------------------------------------
+		/// PRIVATE ATTRIBUTS
+		/// ----------------------------------------------------------------------------------------
+
+		const uint8_t ui8_dir_pin;
+		const uint8_t ui8_cmd_pin;
+		const boolean b_dir;
+
+		boolean b_current_dir;
 };
 
-#endif //__MOTOR__
-/*****************************************************************************
- * END OF FILE
- *****************************************************************************/
+}
+
+#endif	/// MOTOR_H_
+/// ------------------------------------------------------------------------------------------------
+/// END OF FILE
+/// ------------------------------------------------------------------------------------------------
