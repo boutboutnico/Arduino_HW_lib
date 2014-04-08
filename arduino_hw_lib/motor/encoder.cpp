@@ -37,20 +37,18 @@ using namespace arduino_hw_lib;
 Encoder::Encoder(	const uint8_t i_pin_A,
 					const uint8_t i_int_pin_A,
 					const uint8_t i_pin_B,
-					const pfunc ipf_interrupt,
+					const pfunc& ipf_interrupt,
 					const boolean ib_isCCW)
 		: 	pin_A(i_pin_A),
 			int_pin_A(i_int_pin_A),
 			pin_B(i_pin_B),
 			b_CCW(ib_isCCW),
-			interrupt(ipf_interrupt),
 			i32_cpt_encoder(0)
 {
-	/// Nothing to do
-	begin();
+	begin(ipf_interrupt);
 }
 
-void Encoder::begin()
+void Encoder::begin(const pfunc& ipf_interrupt)
 {
 	pinMode(pin_A, INPUT);
 	digitalWrite(pin_A, HIGH);    /// turn on pullup resistor
@@ -58,7 +56,7 @@ void Encoder::begin()
 	pinMode(pin_B, INPUT);
 	digitalWrite(pin_B, HIGH);    /// turn on pullup resistor
 
-	attachInterrupt(int_pin_A, interrupt, CHANGE);
+	attachInterrupt(int_pin_A, ipf_interrupt, CHANGE);
 }
 
 void Encoder::update()

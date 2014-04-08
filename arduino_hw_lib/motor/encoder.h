@@ -60,14 +60,19 @@ class Encoder
 		Encoder(const uint8_t i_pin_A,
 				const uint8_t i_int_pin_A,
 				const uint8_t i_pin_B,
-				const pfunc ipf_interrupt,
+				const pfunc& ipf_interrupt,
 				const boolean ib_isCCW);
 
-		void begin();
 		void update();
 		int32_t getCount() const;
 
 	private:
+		/// ----------------------------------------------------------------------------------------
+		/// PRIVATE DECLARATIONS
+		/// ----------------------------------------------------------------------------------------
+
+		void begin(const pfunc& ipf_interrupt);
+
 		/// ----------------------------------------------------------------------------------------
 		/// PRIVATE ATTRIBUTS
 		/// ----------------------------------------------------------------------------------------
@@ -77,7 +82,6 @@ class Encoder
 		const uint8_t pin_B;
 		const boolean b_CCW;
 
-		const pfunc interrupt;
 		int32_t i32_cpt_encoder;
 };
 
