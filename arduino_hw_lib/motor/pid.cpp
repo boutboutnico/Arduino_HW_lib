@@ -1,16 +1,43 @@
-/**********************************************************************************************
- * Arduino PID Library - Version 1.0.1
- * by Brett Beauregard <br3ttb@gmail.com> brettbeauregard.com
- *
- * This Library is licensed under a GPLv3 License
- **********************************************************************************************/
+///
+/// Class that compute PID command.
+/// Copyright (c) 2013 Nicolas BOUTIN.  All right reserved.
+///
+/// This library is free software; you can redistribute it and/or
+/// modify it under the terms of the GNU Lesser General Public
+/// License as published by the Free Software Foundation; either
+/// version 2.1 of the License, or (at your option) any later version.
+///
+/// This library is distributed in the hope that it will be useful,
+/// but WITHOUT ANY WARRANTY; without even the implied warranty of
+/// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+/// Lesser General Public License for more details.
+///
+/// You should have received a copy of the GNU Lesser General Public
+/// License along with this library; if not, write to the Free Software
+/// Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+/// ------------------------------------------------------------------------------------------------
+///
+/// \file	pid.cpp
+/// \brief	Library that compute PID command.
+/// \date	12/04/2014
+/// \author	nboutin
+///
 
-#include "PID_v1.h"
+#include "pid.h"
+using namespace arduino_hw_lib;
 
-/**
- * @brief	The parameters specified here are those for for which we can't set up
- *    		reliable defaults, so we need to have the user set them.
- */
+/// ------------------------------------------------------------------------------------------------
+/// INCLUDES
+/// ------------------------------------------------------------------------------------------------
+
+/// ------------------------------------------------------------------------------------------------
+/// NAMESPACES
+/// ------------------------------------------------------------------------------------------------
+
+/// ------------------------------------------------------------------------------------------------
+/// PUBLIC DEFINITIONS
+/// ------------------------------------------------------------------------------------------------
+
 PID::PID(	float& i_rf_consigne,
 			float& i_rf_input,
 			float& o_rf_command,
@@ -27,9 +54,9 @@ PID::PID(	float& i_rf_consigne,
 	f_last_error = 0;
 
 	// Default output limit corresponds to the Arduino PWM limits
-	PID::SetOutputLimits(0, 255);
+	SetOutputLimits(0, 255);
 
-	PID::SetTunings(i_f_Kp, i_f_Ki, i_f_Kd);
+	SetTunings(i_f_Kp, i_f_Ki, i_f_Kd);
 }
 
 /**
@@ -40,36 +67,7 @@ PID::PID(	float& i_rf_consigne,
  */
 bool PID::Compute()
 {
-//	if(!b_auto_mode) return false;
-//
-//	/*Compute all the working error variables*/
-//	float f_input = rf_input;
-//	float f_error = rf_consigne - f_input;
-//
-//	// Integrate error
-//	f_ITerm += (f_ki * f_error);
-//	if(f_ITerm > f_out_max) f_ITerm = f_out_max;
-//	else if(f_ITerm < f_out_min) f_ITerm = f_out_min;
-//
-//	// Derivate erro
-//	float dInput = (f_input - f_last_input);
-//
-//	// Compute PID Output
-//	float output = f_kp * f_error + f_ITerm - f_kd * dInput;
-//
-//	// Check for min/max output
-//	if(output > f_out_max) output = f_out_max;
-//	else if(output < f_out_min) output = f_out_min;
-//	rf_command = output;
-//
-//	// Release motor control
-//	if(rf_consigne == 0 && f_input == 0) rf_command = 0;
-//
-//	// Remember some variables for next time
-//	f_last_input = f_input;
-//	return true;
-
-// Calcul error
+	// Calcul error
 	float f_error = (rf_consigne - rf_input);
 
 	// Integrate error
@@ -230,25 +228,25 @@ void PID::SerialReceive()
 	// if the information we got was in the correct format,
 	// read it into the system
 	if (index == 26 && (Auto_Man == 0 || Auto_Man == 1)
-		&& (Direct_Reverse == 0 || Direct_Reverse == 1))
+			&& (Direct_Reverse == 0 || Direct_Reverse == 1))
 	{
 		rf_consigne = double(foo.asFloat[0]);
 		//Input=double(foo.asFloat[1]);       // * the user has the ability to send the
 		//   value of "Input"  in most cases (as
 		//   in this one) this is not needed.
-		if (Auto_Man == 0)		// * only change the output if we are in
+		if (Auto_Man == 0)// * only change the output if we are in
 		{                      //   manual mode.  otherwise we'll get an
-			rf_command = double(foo.asFloat[2]);          //   output blip, then the controller will
+			rf_command = double(foo.asFloat[2]);//   output blip, then the controller will
 		}                                     //   overwrite.
 
-		double p, i, d;                                  // * read in and set the controller tunings
-		p = double(foo.asFloat[3]);                                     //
-		i = double(foo.asFloat[4]);                                     //
-		d = double(foo.asFloat[5]);                                     //
-		SetTunings(p, i, d);                                     //
+		double p, i, d;// * read in and set the controller tunings
+		p = double(foo.asFloat[3]);//
+		i = double(foo.asFloat[4]);//
+		d = double(foo.asFloat[5]);//
+		SetTunings(p, i, d);//
 
-		if (Auto_Man == 0) SetMode(PID_MANUAL);                         // * set the controller mode
-		else SetMode(PID_AUTOMATIC);                                     //
+		if (Auto_Man == 0) SetMode(PID_MANUAL);// * set the controller mode
+		else SetMode(PID_AUTOMATIC);//
 
 //		if(Direct_Reverse == 0) myPID.SetControllerDirection(DIRECT); // * set the controller Direction
 //		else myPID.SetControllerDirection(REVERSE);          //
