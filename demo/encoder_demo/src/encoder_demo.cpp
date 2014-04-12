@@ -30,9 +30,6 @@ Motor r_mot(4, 5, DIR_FORWARD);
 Motor l_mot(7, 6, DIR_REVERSE);
 
 /// pin_A / int_pin_A / pin_B / int_func / is_CCW
-//void doRightEncoder();
-//void doLeftEncoder();
-
 Encoder r_enc(3, 1, 9, DIR_FORWARD);
 Encoder l_enc(2, 0, 8, DIR_REVERSE);
 
@@ -77,20 +74,6 @@ void loop(void)
 
 	delay(ui16_delay);
 }
-
-/// ------------------------------------------------------------------------------------------------
-/// INTERRUPT
-/// ------------------------------------------------------------------------------------------------
-
-//void doRightEncoder()
-//{
-//	r_enc.update();
-//}
-//
-//void doLeftEncoder()
-//{
-//	l_enc.update();
-//}
 
 /// ------------------------------------------------------------------------------------------------
 /// END OF FILE
