@@ -42,6 +42,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/arduino_core/libraries/Wire/utility}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/arduino_hw_lib/lcd_i2c}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/arduino_hw_lib/util}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/arduino_hw_lib/freeRTOS_wrapper}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/freeRTOS_feilipu}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/freeRTOS_feilipu/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/freeRTOS_feilipu/MemMang}&quot;"/>
@@ -68,6 +69,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/arduino_core/libraries/Wire/utility}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/arduino_hw_lib/lcd_i2c}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/arduino_hw_lib/util}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/arduino_hw_lib/freeRTOS_wrapper}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/freeRTOS_feilipu}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/freeRTOS_feilipu/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/freeRTOS_feilipu/MemMang}&quot;"/>
@@ -103,7 +105,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="arduino_core/hardware/arduino|arduino_core/libraries/Wire|freeRTOS_feilipu/lib_ft800|freeRTOS_feilipu/lib_fatf|freeRTOS_feilipu/MemMang/heap_4.c|freeRTOS_feilipu/MemMang/heap_3.c|freeRTOS_feilipu/MemMang/heap_2.c|arduino_hw_lib/srf05|arduino_hw_lib/navigation|arduino_hw_lib/motor|arduino_hw_lib/gp2d12|arduino|src/LCD_I2C_demo_.cpp" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="src/main.cpp|arduino_core/hardware/arduino|arduino_core/libraries/Wire|freeRTOS_feilipu/lib_ft800|freeRTOS_feilipu/lib_fatf|freeRTOS_feilipu/MemMang/heap_4.c|freeRTOS_feilipu/MemMang/heap_3.c|freeRTOS_feilipu/MemMang/heap_2.c|arduino_hw_lib/srf05|arduino_hw_lib/navigation|arduino_hw_lib/motor|arduino_hw_lib/gp2d12|arduino|src/LCD_I2C_demo_.cpp" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -150,6 +152,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/arduino_core/libraries/Wire/utility}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/arduino_hw_lib/lcd_i2c}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/arduino_hw_lib/util}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/arduino_hw_lib/freeRTOS_wrapper}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/freeRTOS_feilipu}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/freeRTOS_feilipu/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/freeRTOS_feilipu/MemMang}&quot;"/>
@@ -176,6 +179,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/arduino_core/libraries/Wire/utility}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/arduino_hw_lib/lcd_i2c}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/arduino_hw_lib/util}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/arduino_hw_lib/freeRTOS_wrapper}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/freeRTOS_feilipu}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/freeRTOS_feilipu/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/freeRTOS_feilipu/MemMang}&quot;"/>
@@ -211,7 +215,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="arduino_core/hardware/arduino|arduino_core/libraries/Wire|freeRTOS_feilipu/lib_ft800|freeRTOS_feilipu/lib_fatf|freeRTOS_feilipu/MemMang/heap_4.c|freeRTOS_feilipu/MemMang/heap_3.c|freeRTOS_feilipu/MemMang/heap_2.c|arduino_hw_lib/srf05|arduino_hw_lib/navigation|arduino_hw_lib/motor|arduino_hw_lib/gp2d12|arduino|src/LCD_I2C_demo_.cpp" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="src/main.cpp|arduino_core/hardware/arduino|arduino_core/libraries/Wire|freeRTOS_feilipu/lib_ft800|freeRTOS_feilipu/lib_fatf|freeRTOS_feilipu/MemMang/heap_4.c|freeRTOS_feilipu/MemMang/heap_3.c|freeRTOS_feilipu/MemMang/heap_2.c|arduino_hw_lib/srf05|arduino_hw_lib/navigation|arduino_hw_lib/motor|arduino_hw_lib/gp2d12|arduino|src/LCD_I2C_demo_.cpp" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
