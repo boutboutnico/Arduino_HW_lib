@@ -10,26 +10,31 @@
 
 #include "thread.h"
 
-class TSK_Test: public OS::Thread
+class TSK_Test : public OS::Thread
 {
-public:
-	TSK_Test() :
-			Thread("TSK_Test", 256, 3)
-	{
+	public:
 
-	}
-	virtual void run();
+//		static const int8_t name[];
+
+		TSK_Test()
+				: Thread("TSK_Test", 256, 3)
+		{
+
+		}
+		virtual void run();
 };
 
-class TSK_Test1: public OS::Thread
+class TSK_Test1 : public OS::Thread
 {
-public:
-	TSK_Test1() :
-			Thread("TSK_Test1", 256, 2)
-	{
+	public:
+//		static const int8_t name[];
 
-	}
-	virtual void run();
+		TSK_Test1()
+				: Thread("TSK_Test1", 256, 2)
+		{
+
+		}
+		virtual void run();
 };
 
 #endif /* TSK_TEST_H_ */

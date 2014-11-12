@@ -6,11 +6,17 @@
  */
 
 #include "thread.h"
-
 using namespace OS;
 
-Thread::Thread(const int8 * const name, const uint16 stack_depth, const UBaseType_t priority)
+#include "task.h"
+
+Thread::Thread(const char* const name, const uint16_t stack_depth, const UBaseType_t priority)
 {
+	/// signed char xTaskGenericCreate(
+	/// void (*)(void *),
+	/// const char *,
+	/// unsigned short int,
+	/// void *, unsigned char, void * *, unsigned char *, const xMEMORY_REGION *)
 	xTaskCreate(Thread::taskfun, name, stack_depth, this, priority, 0);
 }
 

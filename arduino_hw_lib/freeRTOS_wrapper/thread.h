@@ -8,7 +8,6 @@
 #ifndef THREAD_H_
 #define THREAD_H_
 
-#include "type_definitions.h"
 #include "FreeRTOS.h"
 #include "task.h"
 
@@ -17,14 +16,14 @@ namespace OS
 
 class Thread
 {
-public:
-	Thread(const int8 * const name, const uint16 stack_depth, const UBaseType_t priority);
+	public:
+		Thread(const char* const name, const uint16_t stack_depth, const UBaseType_t priority);
 
-	virtual void run() = 0;
+		virtual void run() = 0;
 
-	static void taskfun(void* param);
+		static void taskfun(void* param);
 
-private:
+	private:
 
 };
 
