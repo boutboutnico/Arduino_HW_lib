@@ -22,7 +22,7 @@
 							<option id="de.innot.avreclipse.toolchain.options.toolchain.size.app.debug.68863177" name="Print Size" superClass="de.innot.avreclipse.toolchain.options.toolchain.size.app.debug"/>
 							<option id="de.innot.avreclipse.toolchain.options.toolchain.avrdude.app.debug.1716742673" name="AVRDude" superClass="de.innot.avreclipse.toolchain.options.toolchain.avrdude.app.debug"/>
 							<targetPlatform id="de.innot.avreclipse.targetplatform.winavr.app.debug.855887081" name="AVR Cross-Target" superClass="de.innot.avreclipse.targetplatform.winavr.app.debug"/>
-							<builder buildPath="${workspace_loc:/AVR_for_Arduino_template}/Debug" id="de.innot.avreclipse.target.builder.winavr.app.debug.2087376630" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="AVR GNU Make Builder" superClass="de.innot.avreclipse.target.builder.winavr.app.debug"/>
+							<builder buildPath="${workspace_loc:/AVR_for_Arduino_template}/Debug" id="de.innot.avreclipse.target.builder.winavr.app.debug.2087376630" incrementalBuildTarget="all" keepEnvironmentInBuildfile="true" managedBuildOn="true" name="AVR GNU Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="de.innot.avreclipse.target.builder.winavr.app.debug"/>
 							<tool id="de.innot.avreclipse.tool.assembler.winavr.app.debug.1375881378" name="AVR Assembler" superClass="de.innot.avreclipse.tool.assembler.winavr.app.debug">
 								<option id="de.innot.avreclipse.assembler.option.debug.level.1812345051" name="Generate Debugging Info" superClass="de.innot.avreclipse.assembler.option.debug.level"/>
 								<inputType id="de.innot.avreclipse.tool.assembler.input.131918778" superClass="de.innot.avreclipse.tool.assembler.input"/>
@@ -105,7 +105,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="src/main.cpp|arduino_core/hardware/arduino|arduino_core/libraries/Wire|freeRTOS_feilipu/lib_ft800|freeRTOS_feilipu/lib_fatf|freeRTOS_feilipu/MemMang/heap_4.c|freeRTOS_feilipu/MemMang/heap_3.c|freeRTOS_feilipu/MemMang/heap_2.c|arduino_hw_lib/srf05|arduino_hw_lib/navigation|arduino_hw_lib/motor|arduino_hw_lib/gp2d12|arduino|src/LCD_I2C_demo_.cpp" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="freeRTOS_feilipu/lib-uIP|freeRTOS_feilipu/lib_util|freeRTOS_feilipu/lib_rtc|freeRTOS_feilipu/lib_inet|freeRTOS_feilipu/lib_iinchip|freeRTOS_feilipu/lib_hd44780|freeRTOS_feilipu/lib_ext_ram|src/main.cpp|arduino_core/hardware/arduino|arduino_core/libraries/Wire|freeRTOS_feilipu/lib_ft800|freeRTOS_feilipu/lib_fatf|freeRTOS_feilipu/MemMang/heap_4.c|freeRTOS_feilipu/MemMang/heap_3.c|freeRTOS_feilipu/MemMang/heap_2.c|arduino_hw_lib/srf05|arduino_hw_lib/navigation|arduino_hw_lib/motor|arduino_hw_lib/gp2d12|arduino|src/LCD_I2C_demo_.cpp" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -132,7 +132,7 @@
 							<option id="de.innot.avreclipse.toolchain.options.toolchain.size.app.release.956205161" name="Print Size" superClass="de.innot.avreclipse.toolchain.options.toolchain.size.app.release"/>
 							<option id="de.innot.avreclipse.toolchain.options.toolchain.avrdude.app.release.891156162" name="AVRDude" superClass="de.innot.avreclipse.toolchain.options.toolchain.avrdude.app.release"/>
 							<targetPlatform id="de.innot.avreclipse.targetplatform.winavr.app.release.1844758761" name="AVR Cross-Target" superClass="de.innot.avreclipse.targetplatform.winavr.app.release"/>
-							<builder buildPath="${workspace_loc:/AVR_for_Arduino_template}/Release" id="de.innot.avreclipse.target.builder.winavr.app.release.1235998655" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="AVR GNU Make Builder" superClass="de.innot.avreclipse.target.builder.winavr.app.release"/>
+							<builder buildPath="${workspace_loc:/AVR_for_Arduino_template}/Release" id="de.innot.avreclipse.target.builder.winavr.app.release.1235998655" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="AVR GNU Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="de.innot.avreclipse.target.builder.winavr.app.release"/>
 							<tool id="de.innot.avreclipse.tool.assembler.winavr.app.release.44834026" name="AVR Assembler" superClass="de.innot.avreclipse.tool.assembler.winavr.app.release">
 								<option id="de.innot.avreclipse.assembler.option.debug.level.520524381" name="Generate Debugging Info" superClass="de.innot.avreclipse.assembler.option.debug.level" value="de.innot.avreclipse.assembler.option.debug.level.none" valueType="enumerated"/>
 								<inputType id="de.innot.avreclipse.tool.assembler.input.53212335" superClass="de.innot.avreclipse.tool.assembler.input"/>
@@ -215,7 +215,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="src/main.cpp|arduino_core/hardware/arduino|arduino_core/libraries/Wire|freeRTOS_feilipu/lib_ft800|freeRTOS_feilipu/lib_fatf|freeRTOS_feilipu/MemMang/heap_4.c|freeRTOS_feilipu/MemMang/heap_3.c|freeRTOS_feilipu/MemMang/heap_2.c|arduino_hw_lib/srf05|arduino_hw_lib/navigation|arduino_hw_lib/motor|arduino_hw_lib/gp2d12|arduino|src/LCD_I2C_demo_.cpp" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="freeRTOS_feilipu/lib-uIP|freeRTOS_feilipu/lib_util|freeRTOS_feilipu/lib_rtc|freeRTOS_feilipu/lib_inet|freeRTOS_feilipu/lib_iinchip|freeRTOS_feilipu/lib_hd44780|freeRTOS_feilipu/lib_ext_ram|src/main.cpp|arduino_core/hardware/arduino|arduino_core/libraries/Wire|freeRTOS_feilipu/lib_ft800|freeRTOS_feilipu/lib_fatf|freeRTOS_feilipu/MemMang/heap_4.c|freeRTOS_feilipu/MemMang/heap_3.c|freeRTOS_feilipu/MemMang/heap_2.c|arduino_hw_lib/srf05|arduino_hw_lib/navigation|arduino_hw_lib/motor|arduino_hw_lib/gp2d12|arduino|src/LCD_I2C_demo_.cpp" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
