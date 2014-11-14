@@ -41,7 +41,7 @@ int main(void)
 
 	avrSerialxPrint_P(&xSerialPort, PSTR("Hello World!\n"));
 
-	TSK_Test tsk_test;
+	TSK_RX tsk_test;
 	TSK_Test1 tsk_test1;
 
 	avrSerialxPrintf_P(&xSerialPort, PSTR("Free Heap Size: %u\r\n"), xPortGetFreeHeapSize());

@@ -13,7 +13,7 @@
 
 xComPortHandle xSerialPort;
 
-void TSK_Test::run()
+void TSK_RX::run()
 {
 	xSerialxPrintf_P(&xSerialPort, PSTR("Enter run\n"));
 

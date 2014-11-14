@@ -70,6 +70,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/arduino_hw_lib/lcd_i2c}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/arduino_hw_lib/util}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/arduino_hw_lib/freeRTOS_wrapper}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/arduino_hw_lib/freeRTOS_wrapper/task}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/freeRTOS_feilipu}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/freeRTOS_feilipu/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/freeRTOS_feilipu/MemMang}&quot;"/>
