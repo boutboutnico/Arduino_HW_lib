@@ -83,13 +83,13 @@
 #define configQUEUE_REGISTRY_SIZE	    0
 #define configCHECK_FOR_STACK_OVERFLOW  0
 #define configMAX_PRIORITIES		    ( ( UBaseType_t ) 4 )
-#define configMINIMAL_STACK_SIZE	    ( ( UBaseType_t ) 85 )
+#define configMINIMAL_STACK_SIZE	    ( ( UBaseType_t ) 64 )	/// Size in word
 #define configMAX_TASK_NAME_LEN		    ( 8 )
 
 /* Timer definitions. */
-#define configUSE_TIMERS				0
-#define configTIMER_TASK_PRIORITY       ( ( UBaseType_t ) 7 )
-#define configTIMER_QUEUE_LENGTH        ( ( UBaseType_t ) 10 )
+#define configUSE_TIMERS				1
+#define configTIMER_TASK_PRIORITY       ( ( UBaseType_t ) configMAX_PRIORITIES - 1 )
+#define configTIMER_QUEUE_LENGTH        ( ( UBaseType_t ) 5 )
 #define configTIMER_TASK_STACK_DEPTH    configMINIMAL_STACK_SIZE
 
 /* Co-routine definitions. */
