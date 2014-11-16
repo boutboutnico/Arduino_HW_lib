@@ -8,9 +8,6 @@
 #include "tsk_test.h"
 #include "serial.h"
 
-//const int8_t TSK_Test::name [] = "TSK_Test";
-//const int8_t TSK_Test1::name [] = "TSK_Test1";
-
 xComPortHandle xSerialPort;
 
 void TSK_RX::run()

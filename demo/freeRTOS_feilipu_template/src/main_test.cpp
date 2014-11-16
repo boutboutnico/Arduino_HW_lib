@@ -17,6 +17,9 @@
 #include "queue.h"
 #include "semphr.h"
 
+#include "Arduino.h"
+//#include "streaming.h"
+
 /* this is from avr/time.h, but it is not released into the main stream currently */
 #include "time.h"
 
