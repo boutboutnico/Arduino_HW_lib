@@ -75,8 +75,8 @@
 #define configUSE_TRACE_FACILITY	    0
 #define configUSE_16_BIT_TICKS		    1
 #define configUSE_MUTEXES               1
-#define configUSE_RECURSIVE_MUTEXES     0
-#define configUSE_COUNTING_SEMAPHORES   0
+#define configUSE_RECURSIVE_MUTEXES     1
+#define configUSE_COUNTING_SEMAPHORES   1
 #define configUSE_QUEUE_SETS			0
 #define configUSE_ALTERNATIVE_API       0
 #define configIDLE_SHOULD_YIELD		    1
@@ -90,7 +90,7 @@
 #define configUSE_TIMERS				1
 #define configTIMER_TASK_PRIORITY       ( ( UBaseType_t ) configMAX_PRIORITIES - 1 )
 #define configTIMER_QUEUE_LENGTH        ( ( UBaseType_t ) 5 )
-#define configTIMER_TASK_STACK_DEPTH    configMINIMAL_STACK_SIZE
+#define configTIMER_TASK_STACK_DEPTH    128
 
 /* Co-routine definitions. */
 #define configUSE_CO_ROUTINES 		    0

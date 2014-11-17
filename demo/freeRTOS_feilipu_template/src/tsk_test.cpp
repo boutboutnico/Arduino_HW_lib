@@ -6,33 +6,69 @@
  */
 
 #include "tsk_test.h"
+
+/// === INCLUDES	================================================================================
+
 #include "serial.h"
+#include "Arduino.h"
+
+/// === STATIC IMPORT	============================================================================
 
 xComPortHandle xSerialPort;
 
-void TSK_RX::run()
+/// === STATIC DEFINITIONS	========================================================================
+
+OS::Semaphore TSK_T1::sem(TSK_T1::SEMAPHORE_N_TOKEN);
+
+/// === PUBLIC DEFINITIONS	========================================================================
+
+TSK_T1::TSK_T1()
+		: 	Task("TSK_T1", STACK_SIZE, STACK_PRIORITY),
+			timer("TIM1", TIMER_DURATION, true, TSK_T1::callback)
+{
+
+}
+
+/// ------------------------------------------------------------------------------------------------
+
+void TSK_T1::run()
 {
 	xSerialxPrintf_P(&xSerialPort, PSTR("Enter run\n"));
 
-	TickType_t xLastWakeTime;
-	xLastWakeTime = xTaskGetTickCount();
+//	static const TickType_t delay = 1000;
 
-	const TickType_t xFrequency = (500 / portTICK_PERIOD_MS);
+	bitSet(DDRB, DDB4);
+	bitClear(PORTB, PORTB4);
 
-	DDRB |= _BV(DDB5);
+	timer.start();
 
 	for (;;)
 	{
-		PORTB |= _BV(PORTB5);
-		vTaskDelayUntil(&xLastWakeTime, xFrequency);
+		sem.take(SEMAPHORE_TIMEOUT);
+		bitSet(PORTB, PORTB4);
 
-		PORTB &= ~_BV(PORTB5);
-		vTaskDelayUntil(&xLastWakeTime, xFrequency);
+		sem.take(SEMAPHORE_TIMEOUT);
+		bitClear(PORTB, PORTB4);
+
+//		bitClear(PORTB, PORTB4);
+//		OS::delayUntil(delay);
+//
+//		bitSet(PORTB, PORTB4);
+//		OS::delayUntil(delay);
 
 //		xSerialxPrintf_P(&xSerialPort, PSTR("Current Timestamp: %lu xTaskGetTickCount(): %u\r\n"),
 //				time(NULL), xTaskGetTickCount());
 	}
 }
+
+/// ------------------------------------------------------------------------------------------------
+
+void TSK_T1::callback(TimerHandle_t pxTimer)
+{
+	sem.give();
+}
+
+/// ------------------------------------------------------------------------------------------------
 
 void TSK_Test1::run()
 {
