@@ -31,7 +31,7 @@ class TSK_RX : public OS::Task
 		static const uint16_t STACK_SIZE = 128;
 		static const UBaseType_t STACK_PRIORITY = 1;
 
-		static const TickType_t TIMER_DURATION = 10;
+		static const TickType_t TIMER_DURATION = 500;
 
 		/// === PUBLIC DECLARATIONS	================================================================
 
@@ -42,7 +42,7 @@ class TSK_RX : public OS::Task
 	private:
 		/// === PRIVATE DECLARATIONS	============================================================
 
-		static void callback(TimerHandle_t pxTimer);
+		static void callback(TimerHandle_t pxTimer)__attribute__ ((pure));
 
 		/// === PRIVATE DECLARATIONS	============================================================
 

@@ -13,9 +13,11 @@
 #include "Arduino.h"
 #include "MsTimer2.h"
 
+#include "signal_proccessing/filter.hpp"
+
 /// === STATIC IMPORT	============================================================================
 
-xComPortHandle xSerialPort;
+extern xComPortHandle xSerialPort;
 
 /// === STATIC DEFINITIONS	========================================================================
 
@@ -33,49 +35,63 @@ TSK_RX::TSK_RX()
 
 /// ------------------------------------------------------------------------------------------------
 
-const uint8_t dcf77_analog_sample_pin = A0;
+static const uint8_t pin_dcf_in = 2;
+static const uint8_t pin_dcf_filtered = 3;
+static const uint8_t pin_dcf_filtered_2 = 4;
 
-const uint8_t filtered_dcf77_pin = 2;
+/// ------------------------------------------------------------------------------------------------
 
-void low_pass_filter()
+void MsTimer_callback()
 {
-    // http://en.wikipedia.org/wiki/Low-pass_filter#Continuous-time_low-pass_filters
+	const uint8_t value = digitalRead(pin_dcf_in);
 
-    // I will use fixed point arithmetics with 5 decimals
-    const uint16_t decimal_offset = 10000;
-    static uint32_t smoothed = 0*decimal_offset;
+	///
+	/// Low Pass Filter
+	///
+	uint8_t filtered = filter::low_pass_filter(value);
 
-    const uint32_t input = digitalRead(dcf77_analog_sample_pin) * decimal_offset;
-//    const uint32_t input = analogRead(dcf77_analog_sample_pin)>200 ? decimal_offset : 0;
+	digitalWrite(pin_dcf_filtered, filtered);
 
-    // compute N such that the smoothed signal will always reach 50% of
-    // the input after at most 50 samples (=50ms).
-    // N = 1 / (1- 2^-(1/50)) = 72.635907286
-    const uint16_t N = 72;
-    smoothed = ((N-1) * smoothed + input) / N;
+	///
+	/// SMA
+	///
+//	static const uint8_t N = 50;
+//	static uint32_t mem[N];
+//	static uint32_t sma = 0;
+////	static uint32_t i = 0;
+//
+//	filter::simple_moving_average(value * offset, mem, N, sma);
+//
+//	static bool out = false;
+//	filter::hysteresis(sma, offset / 2, out);
+//
+////	filtered_sma = out ? offset : 0;
+//
+//	digitalWrite(pin_dcf_filtered_2, out);
 
-    // introduce some hysteresis
-    static uint8_t square_wave_output = 0;
+	///
+	/// EMA
+	///
+	static const uint32_t offset = 10000;
+	static const uint16_t alpha = 95; /// 196=50ms, 95 = 75ms
+	static uint32_t ema = 0;
+	static bool state = false;
 
-    if ((square_wave_output == 0) == (smoothed >= decimal_offset/2)) {
-        // smoothed value more >= 50% away from output
-        // ==> switch output
-        square_wave_output = 1-square_wave_output;
-        // ==> max the smoothed value in order to introduce some
-        //     hysteresis, this also ensures that there is no
-        //     "infinite memory"
-        smoothed = square_wave_output? decimal_offset: 0;
-    }
+	ema = filter::exponential_moving_average(value * offset, ema, alpha);
 
-    digitalWrite(filtered_dcf77_pin, square_wave_output);
+	if (filter::hysteresis(ema, offset / 2, state) == true)
+	{
+		ema = state ? offset : 0;
+	}
+
+	digitalWrite(pin_dcf_filtered_2, state);
 }
+
+/// ------------------------------------------------------------------------------------------------
 
 void TSK_RX::run()
 {
-	static const TickType_t delay = 10;
-
-//	DDRB |= _BV(DDB4);
-//	DDRB |= _BV(DDB5);
+	static const TickType_t delay = 500;
 
 /// PORTB4 output
 	bitSet(DDRB, DDB4);
@@ -84,20 +100,60 @@ void TSK_RX::run()
 	/// PORTB5 input and Pull-up ON
 //	bitClear(DDRB, DDB0);
 //	bitSet(PORTB, PORTB0);
-//	bitClear(PORTB, PORTB0);
+
+	pinMode(pin_dcf_in, INPUT);
+	pinMode(pin_dcf_filtered, OUTPUT);
+	pinMode(pin_dcf_filtered_2, OUTPUT);
 
 	timer.start();
-//	volatile uint8_t read = 0;
 
-	pinMode(dcf77_analog_sample_pin, INPUT);
-
-	pinMode(filtered_dcf77_pin, OUTPUT);
-
-	MsTimer2::set(1, low_pass_filter);
+	MsTimer2::set(1, MsTimer_callback);
 	MsTimer2::start();
+
+//	xSerialxPrintf_P(&xSerialPort, PSTR("bool:%d\n"), sizeof(bool));
+//	xSerialxPrintf_P(&xSerialPort, PSTR("uint32_t:%d\n"), sizeof(uint32_t));
+//
+//	xSerialxPrintf_P(&xSerialPort, PSTR("int:%d\n"), sizeof(int));
+//	xSerialxPrintf_P(&xSerialPort, PSTR("u int:%d\n"), sizeof(unsigned int));
+//	xSerialxPrintf_P(&xSerialPort, PSTR("ul int:%d\n"), sizeof(unsigned long int));
 
 	for (;;)
 	{
+		static bool out = false;
+
+		static const uint8_t val_max = 10;
+
+		OS::delayUntil(delay);
+
+		for (uint8_t i = 0; i < val_max; i++)
+		{
+//			out = filter::hysteresis(i, out, val_max / 2);
+
+//			xSerialxPrintf_P(&xSerialPort, PSTR("i:%d\t out:%d\n"), i, out);
+
+			OS::delayUntil(delay);
+		}
+
+		for (uint8_t i = val_max; i > 0; i--)
+		{
+//			out = filter::hysteresis(i, out, val_max / 2);
+
+//			xSerialxPrintf_P(&xSerialPort, PSTR("i:%d\t out:%d\n"), i, out);
+
+			OS::delayUntil(delay);
+		}
+
+//		uint8_t val = 0;
+//
+//		{
+//			val = filter::test<uint8_t>();
+//			xSerialxPrintf_P(&xSerialPort, PSTR("Count_1: %d\n"), val);
+//		}
+//
+//		{
+//			val = filter::test<uint8_t>();
+//			xSerialxPrintf_P(&xSerialPort, PSTR("Count_2: %d\n"), val);
+//		}
 
 //		xSerialxPrintf_P(&xSerialPort, PSTR("Count: %d\t%d\n"), count_high_, count_low_);
 //		count_ = 0;
@@ -105,7 +161,7 @@ void TSK_RX::run()
 
 //		xSerialxPrintf_P(&xSerialPort, PSTR("AnalogRead: %d\n"), digitalRead(dcf77_analog_sample_pin));
 
-		OS::delayUntil(delay);
+//		OS::delayUntil(delay);
 
 //		read = bitRead(PINB, PINB5);
 //		xSerialxPrintf_P(&xSerialPort, PSTR("read: %d\n"), read);
@@ -124,6 +180,12 @@ void TSK_RX::run()
 
 void TSK_RX::callback(TimerHandle_t pxTimer)
 {
+//	const uint8_t value = digitalRead(pin_dcf_in);
+//
+//	uint8_t filtered = filter::low_pass_filter(value);
+//
+//	digitalWrite(pin_dcf_filtered, filtered);
+
 //	analogRead()
 
 //	static uint8_t count_high = 0;
