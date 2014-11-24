@@ -8,6 +8,8 @@
 #include "semaphore.hpp"
 using namespace OS;
 
+#include "FreeRTOS.h"
+
 bool Semaphore::take(TickType_t timeout_ms)
 {
 	if (timeout_ms == TIMEOUT_MAX)
@@ -24,7 +26,9 @@ bool Semaphore::take(TickType_t timeout_ms)
 
 bool Semaphore::takeFromISR()
 {
-	return false;
+	BaseType_t pxHigherPriorityTaskWoken;
+
+	return xSemaphoreTakeFromISR(handle, &pxHigherPriorityTaskWoken);
 }
 
 /// ------------------------------------------------------------------------------------------------
@@ -38,7 +42,7 @@ bool Semaphore::give()
 
 bool Semaphore::giveFromISR()
 {
-	return false;
+	return xSemaphoreGiveFromISR(handle, NULL);
 }
 
 /// ------------------------------------------------------------------------------------------------
@@ -53,6 +57,13 @@ Semaphore::Semaphore(uint8_t n_token)
 	{
 		handle = xSemaphoreCreateCounting(n_token, n_token);
 	}
+}
+
+/// ------------------------------------------------------------------------------------------------
+
+Semaphore::~Semaphore()
+{
+	vSemaphoreDelete(handle);
 }
 
 /// ------------------------------------------------------------------------------------------------

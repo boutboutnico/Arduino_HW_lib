@@ -32,6 +32,7 @@ class Semaphore : public I_Semaphore
 		/// === PUBLIC DECLARATIONS	================================================================
 
 		Semaphore(uint8_t n_token);
+		virtual ~Semaphore();
 
 	protected:
 		/// === PROTECTED ATTRIBUTS	================================================================
