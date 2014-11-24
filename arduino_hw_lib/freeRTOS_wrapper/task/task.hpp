@@ -11,18 +11,26 @@
 #include "FreeRTOS.h"
 #include "task.h"
 
-#define bitSet(value, bit) ((value) |= (1UL << (bit)))
-#define bitClear(value, bit) ((value) &= ~(1UL << (bit)))
-
 namespace OS
 {
 
-static TickType_t ms_to_ticks(TickType_t time_ms)
+/// ------------------------------------------------------------------------------------------------
+
+inline TickType_t ms_to_ticks(TickType_t time_ms)
 {
 	return time_ms / portTICK_PERIOD_MS;
 }
 
-static void delayUntil(TickType_t time_ms)
+/// ------------------------------------------------------------------------------------------------
+
+//static TickType_t ticks_to_ms(TickType_t ticks)
+//{
+//	return
+//}
+
+/// ------------------------------------------------------------------------------------------------
+
+inline void delayUntil(TickType_t time_ms)
 {
 	TickType_t xLastWakeTime = xTaskGetTickCount();
 

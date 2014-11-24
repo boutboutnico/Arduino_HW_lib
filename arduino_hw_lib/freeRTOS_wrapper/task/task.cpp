@@ -20,6 +20,8 @@ Task::Task(const char* const name, const uint16_t stack_depth, const UBaseType_t
 	xTaskCreate(Task::callback, name, stack_depth, this, priority, 0);
 }
 
+/// ------------------------------------------------------------------------------------------------
+
 void Task::callback(void* param)
 {
 	static_cast<Task*>(param)->run();
